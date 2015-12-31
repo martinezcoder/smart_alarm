@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151231152820) do
+ActiveRecord::Schema.define(version: 20151231161144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -58,6 +59,19 @@ ActiveRecord::Schema.define(version: 20151231152820) do
   end
 
   add_index "contacts", ["user_id"], name: "index_contacts_on_user_id", using: :btree
+
+  create_table "endpoints", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "state"
+    t.integer  "expires",    limit: 8
+    t.integer  "sent_alert", limit: 8
+    t.integer  "retries"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "endpoints", ["expires"], name: "index_endpoints_on_expires", using: :btree
+  add_index "endpoints", ["state"], name: "index_endpoints_on_state", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
