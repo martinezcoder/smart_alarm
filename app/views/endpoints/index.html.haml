@@ -1,0 +1,29 @@
+.col-md-12
+  .row
+    - if flash[:notice]
+      .alert.alert-success
+        %a.close{"aria-label" => "close", "data-dismiss" => "alert", :href => "#"} ×
+        %strong= flash[:notice]
+
+    %h1 Listing Endpoints
+
+    %table
+      %thead
+        %tr
+          %th Name
+          %th Expires
+          %th
+          %th
+          %th
+
+      %tbody
+        - @endpoints.each do |endpoint|
+          %tr
+            %td= endpoint.name
+            %td= endpoint.expires
+            %td= link_to "Show", endpoint
+            %td= link_to "Edit", edit_endpoint_path(endpoint)
+            %td= link_to "Destroy", endpoint, method: :delete, data: { confirm: 'Are you sure?' }
+
+  .row
+    = link_to 'New Endpoint', new_endpoint_path

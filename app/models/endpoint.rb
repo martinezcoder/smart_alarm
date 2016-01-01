@@ -14,4 +14,20 @@
 
 class Endpoint < ActiveRecord::Base
   enum state: [ :disable, :enable, :zombie ]
+
+  scope :non_zombie, -> { where.not(state: Endpoint.states[:zombie]) }
+
+  before_save :set_expires_at
+  before_create :set_defaults
+
+  private
+
+  def set_expires_at
+    self.expires = (Time.now + 10.days).to_i
+  end
+
+  def set_defaults
+    self.retries = 0
+    self.state = 1
+  end
 end

@@ -33,6 +33,8 @@ gem 'annotate', '~> 2.6.10'
 
 gem 'sendgrid-ruby', '~> 1.1.6'
 
+gem 'haml', '~> 4.0.7'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

@@ -1,0 +1,16 @@
+= form_for @endpoint do |f|
+  - if @endpoint.errors.any?
+    #error_explanation
+      .alert.alert-success
+        %a.close{"aria-label" => "close", "data-dismiss" => "alert", :href => "#"} ×
+        %h2= "#{pluralize(@endpoint.errors.count, "error")} prohibited this endpoint from being saved:"
+        %ul
+          - @endpoint.errors.full_messages.each do |message|
+            %li
+              = message
+  .field
+    = f.label :name
+    = f.text_field :name
+
+  .actions
+    = f.submit
