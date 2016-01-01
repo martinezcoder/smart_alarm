@@ -29,11 +29,11 @@ module Appco
     config.action_mailer.raise_delivery_errors = true
     ActionMailer::Base.delivery_method = :smtp
     ActionMailer::Base.smtp_settings = {
-      :address        => 'smtp.gmail.com',
+      :address        => 'smtp.sendgrid.net',
       :domain         => 'mail.google.com',
       :port           => 587,
-      :user_name      => ENV['EMAIL'],
-      :password       => ENV['EMAIL_PASSWORD'],
+      :user_name      => ENV['SENDGRID_USERNAME'],
+      :password       => ENV['SENDGRID_PASSWORD'],
       :authentication => :plain,
       :enable_starttls_auto => true
     }
