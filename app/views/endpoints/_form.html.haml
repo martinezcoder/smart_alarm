@@ -8,9 +8,50 @@
           - @endpoint.errors.full_messages.each do |message|
             %li
               = message
-  .field
-    = f.label :name
-    = f.text_field :name
-
-  .actions
-    = f.submit
+  .form-group
+    = f.label :name, 'Name'
+    %br/
+    = f.text_field :name, autofocus: true, class: "form-control"
+  %br/
+  .form-group
+    = f.label 'Type'
+    %br/
+    %label.radio-inline
+      %input#event-base-alert{ name: "radiotype", type: "radio", checked: "checked" }
+      Event-base Alert
+    %label.radio-inline
+      %input#downtime-alert{ name: "radiotype", type: "radio" }
+      Downtime Alert
+  #interval-container.form-group.hidden
+    = f.label 'Interval'
+    %br/
+    .col-md-3
+      .radio
+        %label
+          = f.radio_button('interval', '15')
+          15 Minute
+      .radio
+        %label
+          = f.radio_button('interval', '60')
+          Hour
+      .radio
+        %label
+          = f.radio_button('interval', '10080')
+          Week
+    .col-md-3
+      .radio
+        %label
+          = f.radio_button('interval', '30')
+          30 Minute
+      .radio
+        %label
+          = f.radio_button('interval', '1440')
+          Day
+      .radio
+        %label
+          = f.radio_button('interval', '40320')
+          Month
+  .col-md-12.text-right
+    .actions
+      = f.submit "#{params[:action] == 'new' ? 'Create' : 'Edit'}", class: "btn btn-success"
+      = link_to 'Back', endpoints_path, class: "btn btn-default"

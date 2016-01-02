@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20151231161144) do
     t.integer  "expires",    limit: 8
     t.integer  "sent_alert", limit: 8
     t.integer  "retries"
+    t.integer  "interval"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
   end

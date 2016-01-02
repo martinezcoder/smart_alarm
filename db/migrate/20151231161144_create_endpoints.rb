@@ -6,6 +6,7 @@ class CreateEndpoints < ActiveRecord::Migration
       t.integer :expires, limit: 8
       t.integer :sent_alert, limit: 8
       t.integer :retries
+      t.integer :interval
 
       t.timestamps null: false
     end

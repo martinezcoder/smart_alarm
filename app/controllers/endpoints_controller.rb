@@ -1,6 +1,6 @@
 class EndpointsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_endpoint, only: [:edit, :update]
+  before_action :set_endpoint, only: [:edit, :update, :show]
 
   def index
     @endpoints = Endpoint.non_zombie
@@ -8,6 +8,9 @@ class EndpointsController < ApplicationController
 
   def new
     @endpoint = Endpoint.new
+  end
+
+  def show
   end
 
   def create
@@ -24,7 +27,9 @@ class EndpointsController < ApplicationController
   end
 
   def update
-    if @endpoint.update(endpoint_params)
+    new_attrs = endpoint_params
+    new_attrs[:interval] ||= nil
+    if @endpoint.update(new_attrs)
       flash[:notice] = 'Endpoint successfully updated'
       redirect_to endpoints_path
     else
@@ -39,6 +44,6 @@ class EndpointsController < ApplicationController
   end
 
   def endpoint_params
-    params.require(:endpoint).permit(:name)
+    params.require(:endpoint).permit(:name, :interval)
   end
 end
