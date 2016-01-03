@@ -29,9 +29,9 @@ module Appco
     config.action_mailer.raise_delivery_errors = true
     ActionMailer::Base.delivery_method = :smtp
     ActionMailer::Base.smtp_settings = {
-      :address        => 'smtp.sendgrid.net',
-      :domain         => 'mail.google.com',
-      :port           => 587,
+      :address        => ENV['SENDGRID_ADDRESS'],
+      :domain         => ENV['SENDGRID_DOMAIN'],
+      :port           => ENV['SENDGRID_PORT'],
       :user_name      => ENV['SENDGRID_USERNAME'],
       :password       => ENV['SENDGRID_PASSWORD'],
       :authentication => :plain,

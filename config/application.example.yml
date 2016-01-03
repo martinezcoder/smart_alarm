@@ -1,0 +1,16 @@
+# Sendgrid
+development:
+  SENDGRID_ADDRESS: localhost
+  SENDGRID_DOMAIN: mail.google.com
+  SENDGRID_PORT: '1025'
+  SENDGRID_API_KEY:
+  SENDGRID_USERNAME:
+  SENDGRID_PASSWORD:
+production:
+  SENDGRID_ADDRESS: smtp.sendgrid.net
+  SENDGRID_DOMAIN: mail.google.com
+  SENDGRID_PORT: '587'
+  SENDGRID_API_KEY: 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
+  SENDGRID_USERNAME: martinezcoder
+  SENDGRID_PASSWORD: Uruguay2016$
+
