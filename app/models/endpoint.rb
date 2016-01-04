@@ -21,21 +21,22 @@ class Endpoint < ActiveRecord::Base
   before_create :set_defaults
 
   def event_based_alert?
-    expires_at == nil
+    interval == nil
   end
 
   def downtime_alert?
-    expires_at.present?
+    interval.present?
   end
 
   private
 
   def set_expires_at
-    self.expires_at = interval ? (Time.now + interval.minutes).to_i : nil
+    self.expires_at = downtime_alert? ? (Time.now + interval.minutes).to_i : nil
   end
 
   def set_defaults
     self.retries = 0
-    self.state =  Endpoint.states[:disable]
+    self.state = Endpoint.states[:disable]
   end
 end
+
