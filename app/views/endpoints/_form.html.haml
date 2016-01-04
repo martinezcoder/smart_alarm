@@ -28,28 +28,28 @@
     .col-md-3
       .radio
         %label
-          = f.radio_button('interval', '15')
+          = f.radio_button('interval', Endpoint.intervals["15-minutes"])
           15 Minute
       .radio
         %label
-          = f.radio_button('interval', '60')
+          = f.radio_button('interval', Endpoint.intervals["hourly"])
           Hour
       .radio
         %label
-          = f.radio_button('interval', '10080')
+          = f.radio_button('interval', Endpoint.intervals["weekly"])
           Week
     .col-md-3
       .radio
         %label
-          = f.radio_button('interval', '30')
+          = f.radio_button('interval', Endpoint.intervals["30-minutes"])
           30 Minute
       .radio
         %label
-          = f.radio_button('interval', '1440')
+          = f.radio_button('interval', Endpoint.intervals["daily"])
           Day
       .radio
         %label
-          = f.radio_button('interval', '40320')
+          = f.radio_button('interval', Endpoint.intervals["monthly"])
           Month
   .col-md-12.text-right
     .actions
