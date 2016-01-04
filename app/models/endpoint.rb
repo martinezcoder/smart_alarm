@@ -5,7 +5,7 @@
 #  id         :uuid             not null, primary key
 #  name       :string
 #  state      :integer
-#  expires    :integer
+#  expires_at :integer
 #  sent_alert :integer
 #  retries    :integer
 #  created_at :datetime         not null
@@ -21,17 +21,17 @@ class Endpoint < ActiveRecord::Base
   before_create :set_defaults
 
   def event_based_alert?
-    expires == nil
+    expires_at == nil
   end
 
   def downtime_alert?
-    expires.present?
+    expires_at.present?
   end
 
   private
 
   def set_expires_at
-    self.expires = interval ? (Time.now + interval.minutes).to_i : nil
+    self.expires_at = interval ? (Time.now + interval.minutes).to_i : nil
   end
 
   def set_defaults

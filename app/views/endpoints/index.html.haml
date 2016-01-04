@@ -14,14 +14,15 @@
         %thead
           %tr
             %th Name
-            %th Expires
+            %th Expires at
             %th
 
         %tbody
           - @endpoints.each do |endpoint|
             %tr
               %td= endpoint.name
-              %td= endpoint.expires
+              /FIXME use presenters
+              %td= endpoint.downtime_alert? ? Time.at(endpoint.expires_at) : 'Event-based'
               %td= link_to "Edit", edit_endpoint_path(endpoint)
       .row
         .col-md-2.col-md-offset-10

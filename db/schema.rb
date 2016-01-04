@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20151231161144) do
   create_table "endpoints", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name"
     t.integer  "state"
-    t.integer  "expires",    limit: 8
+    t.integer  "expires_at", limit: 8
     t.integer  "sent_alert", limit: 8
     t.integer  "retries"
     t.integer  "interval"
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 20151231161144) do
     t.datetime "updated_at",           null: false
   end
 
-  add_index "endpoints", ["expires"], name: "index_endpoints_on_expires", using: :btree
+  add_index "endpoints", ["expires_at"], name: "index_endpoints_on_expires_at", using: :btree
   add_index "endpoints", ["state"], name: "index_endpoints_on_state", using: :btree
 
   create_table "users", force: :cascade do |t|

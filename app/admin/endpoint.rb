@@ -1,10 +1,10 @@
 ActiveAdmin.register Endpoint do
-  permit_params :name, :state, :expires, :sent_alert, :retries
+  permit_params :name, :state, :expires_at, :sent_alert, :retries
 
   index do
     column :name
     column :state
-    column :expires
+    column :expires_at
     column :sent_alert
     column :retries
     actions
@@ -14,7 +14,7 @@ ActiveAdmin.register Endpoint do
     f.inputs "Endpoint" do
       f.input :name
       f.input :state, as: :select, collection: Endpoint.states.keys
-      f.input :expires
+      f.input :expires_at
       f.input :sent_alert
       f.input :retries
     end
