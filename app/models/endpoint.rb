@@ -4,7 +4,7 @@
 #
 #  id         :uuid             not null, primary key
 #  name       :string
-#  state      :integer
+#  status      :integer
 #  expires_at :integer
 #  sent_alert :integer
 #  retries    :integer
@@ -13,9 +13,9 @@
 #
 
 class Endpoint < ActiveRecord::Base
-  enum state: [ :disable, :enable, :zombie ]
+  enum status: [ :disable, :enable, :zombie ]
 
-  scope :non_zombie, -> { where.not(state: Endpoint.states[:zombie]) }
+  scope :non_zombie, -> { where.not(status: Endpoint.statuses[:zombie]) }
 
   before_save :set_expires_at
   before_create :set_defaults
@@ -36,7 +36,7 @@ class Endpoint < ActiveRecord::Base
 
   def set_defaults
     self.retries = 0
-    self.state = Endpoint.states[:disable]
+    self.status = Endpoint.statuses[:disable]
   end
 end
 
