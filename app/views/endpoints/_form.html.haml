@@ -12,7 +12,6 @@
     = f.label :name, 'Name'
     %br/
     = f.text_field :name, autofocus: true, class: "form-control"
-  %br/
   .form-group
     = f.label 'Type'
     %br/
@@ -51,6 +50,11 @@
         %label
           = f.radio_button('interval', Endpoint.intervals["monthly"])
           Month
+  .form-group
+    = f.label :recipients, 'Recipients'
+    %br/
+    = f.text_field :recipients, class: "form-control"
+  %br/
   .col-md-12.text-right
     .actions
       = f.submit "#{params[:action] == 'new' ? 'Create' : 'Edit'}", class: "btn btn-success"

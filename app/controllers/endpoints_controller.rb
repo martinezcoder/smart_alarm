@@ -44,6 +44,6 @@ class EndpointsController < ApplicationController
   end
 
   def endpoint_params
-    params.require(:endpoint).permit(:name, :interval)
+    params.require(:endpoint).permit(:name, :interval, :recipients)
   end
 end
