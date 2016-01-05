@@ -8,11 +8,11 @@
           - @endpoint.errors.full_messages.each do |message|
             %li
               = message
-  .form-group
+  .form-group.row
     = f.label :name, 'Name'
     %br/
     = f.text_field :name, autofocus: true, class: "form-control"
-  .form-group
+  .form-group.row
     = f.label 'Type'
     %br/
     %label.radio-inline
@@ -21,7 +21,7 @@
     %label.radio-inline
       %input#downtime-alert{ name: "radiotype", type: "radio" }
       Downtime Alert
-  #interval-container.form-group.hidden
+  #interval-container.form-group.hidden.row
     = f.label 'Interval'
     %br/
     .col-md-3
@@ -50,12 +50,13 @@
         %label
           = f.radio_button('interval', Endpoint.intervals["monthly"])
           Month
-  .form-group
+  .form-group.row
     = f.label :recipients, 'Recipients'
     %br/
     = f.text_field :recipients, class: "form-control"
   %br/
-  .col-md-12.text-right
-    .actions
-      = f.submit "#{params[:action] == 'new' ? 'Create' : 'Edit'}", class: "btn btn-success"
-      = link_to 'Back', endpoints_path, class: "btn btn-default"
+  .row
+    .col-md-12.text-right
+      .actions
+        = f.submit "#{params[:action] == 'new' ? 'Create' : 'Edit'}", class: "btn btn-success"
+        = link_to 'Back', endpoints_path, class: "btn btn-default"
