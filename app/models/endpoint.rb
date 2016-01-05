@@ -4,8 +4,8 @@
 #
 #  id         :uuid             not null, primary key
 #  name       :string
-#  state      :integer
-#  expires    :integer
+#  status      :integer
+#  expires_at :integer
 #  sent_alert :integer
 #  retries    :integer
 #  created_at :datetime         not null
@@ -13,5 +13,39 @@
 #
 
 class Endpoint < ActiveRecord::Base
-  enum state: [ :disable, :enable, :zombie ]
+  enum status: [ :disable, :enable, :zombie ]
+  enum intervals: { "15-minutes": 15.minutes,
+                    "30-minutes": 30.minutes,
+                    "hourly":  1.hour,
+                    "daily":   1.day,
+                    "weekly":  1.week,
+                    "monthly": 1.month }
+
+  scope :non_zombie, -> { where.not(status: Endpoint.statuses[:zombie]) }
+
+  before_save :set_expires_at
+  before_create :set_defaults
+
+  validates :name, presence: true
+  validates :interval, inclusion: { in: self.intervals.values, message: "%{value} is not a permitted interval"}, allow_nil: true
+
+  def event_based_alert?
+    interval == nil
+  end
+
+  def downtime_alert?
+    interval.present?
+  end
+
+  private
+
+  def set_expires_at
+    self.expires_at = downtime_alert? ? (Time.now + interval).to_i : nil
+  end
+
+  def set_defaults
+    self.retries = 0
+    self.status = Endpoint.statuses[:disable]
+  end
 end
+
