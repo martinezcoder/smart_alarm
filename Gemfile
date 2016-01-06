@@ -35,6 +35,8 @@ gem 'sendgrid-ruby', '~> 1.1.6'
 
 gem 'haml', '~> 4.0.7'
 
+gem 'sidekiq', '~> 4.0.1'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -45,9 +47,11 @@ gem 'haml', '~> 4.0.7'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.0'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+
+  gem 'factory_girl_rails', '~> 4.5.0'
+  gem 'faker', '~> 1.6.1'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
@@ -58,3 +62,7 @@ group :development, :test do
   gem 'pry-byebug'
 end
 
+group :test do
+  gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-sidekiq', '~> 2.2.0'
+end
