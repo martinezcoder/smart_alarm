@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   end
 
   resources :endpoints
+
+  match ':uuid', to: 'endpoints#execute', via: [:post]
 end

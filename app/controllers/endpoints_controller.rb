@@ -1,6 +1,7 @@
 class EndpointsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:execute]
   before_action :set_endpoint, only: [:edit, :update, :show]
+  skip_before_action :verify_authenticity_token, only: [:execute]
 
   def index
     @endpoints = Endpoint.non_zombie
@@ -35,6 +36,11 @@ class EndpointsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def execute
+    AlertWorker.perform_async(params[:uuid])
+    head :ok
   end
 
   private
