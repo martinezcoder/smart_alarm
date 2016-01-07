@@ -1,5 +1,6 @@
 class AlertWorker
   include Sidekiq::Worker
+  sidekiq_options retry: false
 
   def perform(alarm_id, expired = false)
     alarm = Endpoint.find alarm_id
