@@ -14,12 +14,6 @@ class EmailService
       m.subject = email_data[:subject]
       m.text = email_data[:text]
     end
-
-    res = client.send(mail)
-    if res.code == 200
-      alarm.sent_alert = Time.now.to_i
-      alarm.retries += 1
-      alarm.save
-    end
+    client.send(mail)
   end
 end
