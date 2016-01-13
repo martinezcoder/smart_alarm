@@ -23,6 +23,8 @@ class Endpoint < ActiveRecord::Base
 
   scope :non_zombie, -> { where.not(status: Endpoint.statuses[:zombie]) }
 
+  belongs_to :user
+
   before_save :set_expires_at
   before_create :set_defaults
 
