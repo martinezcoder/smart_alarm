@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   end
 
   resources :endpoints
+  resources :contacts
 
   match ':uuid', to: 'endpoints#execute', via: [:post]
 end
