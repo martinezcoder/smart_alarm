@@ -4,7 +4,7 @@ class EndpointsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:execute]
 
   def index
-    @endpoints = Endpoint.non_zombie
+    @endpoints = current_user.endpoints.non_zombie
   end
 
   def new
@@ -15,7 +15,7 @@ class EndpointsController < ApplicationController
   end
 
   def create
-    @endpoint = Endpoint.new(endpoint_params)
+    @endpoint = current_user.endpoints.new(endpoint_params)
     if @endpoint.save
       flash[:notice] = 'Endpoint successfully created'
       redirect_to endpoints_path
@@ -46,7 +46,7 @@ class EndpointsController < ApplicationController
   private
 
   def set_endpoint
-    @endpoint = Endpoint.find(params[:id])
+    @endpoint = current_user.endpoints.find(params[:id])
   end
 
   def endpoint_params
