@@ -1,0 +1,24 @@
+= form_for @contact do |f|
+  - if @contact.errors.any?
+    #error_explanation
+      .alert.alert-success
+        %a.close{"aria-label" => "close", "data-dismiss" => "alert", :href => "#"} ×
+        %h2= "#{pluralize(@contact.errors.count, "error")} prohibited this contact from being saved:"
+        %ul
+          - @contact.errors.full_messages.each do |message|
+            %li
+              = message
+  .form-group.row
+    = f.label :name, 'Name'
+    %br/
+    = f.text_field :name, autofocus: true, class: "form-control"
+  .form-group.row
+    = f.label :email, 'Email'
+    %br/
+    = f.text_field :email, autofocus: true, class: "form-control"
+  %br/
+  .row
+    .col-md-12.text-right
+      .actions
+        = f.submit "#{params[:action] == 'new' ? 'Create' : 'Edit'}", class: "btn btn-success"
+        = link_to 'Back', contacts_path, class: "btn btn-default"
