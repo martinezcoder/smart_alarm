@@ -14,6 +14,8 @@
         %thead
           %tr
             %th Name
+            %th Status
+            %th Last Use
             %th Expires at
             %th
 
@@ -21,6 +23,11 @@
           - @endpoints.each do |endpoint|
             %tr
               %td= endpoint.name
+              %td
+                %input{:checked => endpoint.enable?, :name => "status", :type => "checkbox", "data-id" => "#{endpoint.id}" }
+                - if endpoint.zombie?
+                  .zombie-status &#9760
+              %td= endpoint.sent_alert ? Time.at(endpoint.sent_alert) : 'Never'
               /FIXME use presenters
               %td= endpoint.downtime_alert? ? Time.at(endpoint.expires_at) : 'Event-based'
               %td= link_to "Edit", edit_endpoint_path(endpoint)

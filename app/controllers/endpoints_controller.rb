@@ -5,7 +5,7 @@ class EndpointsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:execute]
 
   def index
-    @endpoints = current_user.endpoints.non_zombie
+    @endpoints = current_user.endpoints
   end
 
   def new
@@ -51,6 +51,6 @@ class EndpointsController < ApplicationController
   end
 
   def endpoint_params
-    params.require(:endpoint).permit(:name, :interval, :recipients)
+    params.require(:endpoint).permit(:name, :interval, :recipients, :status)
   end
 end

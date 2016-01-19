@@ -27,8 +27,12 @@
     .col-md-3
       .radio
         %label
+          = f.radio_button('interval', Endpoint.intervals["5-minutes"])
+          5 Minutes
+      .radio
+        %label
           = f.radio_button('interval', Endpoint.intervals["15-minutes"])
-          15 Minute
+          15 Minutes
       .radio
         %label
           = f.radio_button('interval', Endpoint.intervals["hourly"])

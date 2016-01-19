@@ -14,7 +14,8 @@
 
 class Endpoint < ActiveRecord::Base
   enum status: [ :disable, :enable, :zombie ]
-  enum intervals: { "15-minutes": 15.minutes,
+  enum intervals: { "5-minutes": 5.minutes,
+                    "15-minutes": 15.minutes,
                     "30-minutes": 30.minutes,
                     "hourly":  1.hour,
                     "daily":   1.day,
