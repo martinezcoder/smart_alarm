@@ -2,7 +2,6 @@ class EndpointsController < ApplicationController
   before_action :set_endpoint, only: [:edit, :update, :show]
 
   skip_before_action :authenticate_user!, only: [:execute]
-  skip_before_action :verify_authenticity_token, only: [:execute]
 
   def index
     @endpoints = current_user.endpoints

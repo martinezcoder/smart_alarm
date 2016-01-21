@@ -1,6 +1,5 @@
 class ContactsController < ApplicationController
   before_action :set_contact, only: [:edit, :update, :show]
-  skip_before_action :verify_authenticity_token, only: [:execute]
 
   def index
     @contacts = current_user.contacts
