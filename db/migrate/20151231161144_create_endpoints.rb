@@ -7,10 +7,13 @@ class CreateEndpoints < ActiveRecord::Migration
       t.integer :sent_alert, limit: 8
       t.integer :retries
       t.integer :interval
+      t.integer :user_id
+      t.text    :recipients
 
       t.timestamps null: false
     end
     add_index :endpoints, :expires_at
     add_index :endpoints, :status
+    add_index :endpoints, :user_id
   end
 end
