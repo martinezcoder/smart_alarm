@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151231161144) do
+ActiveRecord::Schema.define(version: 20160105001259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,15 +67,13 @@ ActiveRecord::Schema.define(version: 20151231161144) do
     t.integer  "sent_alert", limit: 8
     t.integer  "retries"
     t.integer  "interval"
-    t.integer  "user_id"
-    t.text     "recipients"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.text     "recipients"
   end
 
   add_index "endpoints", ["expires_at"], name: "index_endpoints_on_expires_at", using: :btree
   add_index "endpoints", ["status"], name: "index_endpoints_on_status", using: :btree
-  add_index "endpoints", ["user_id"], name: "index_endpoints_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
