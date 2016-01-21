@@ -1,23 +1,23 @@
 # Sendgrid
 development:
-  SENDGRID_ADDRESS: localhost
-  SENDGRID_DOMAIN: mail.google.com
-  SENDGRID_PORT: '1025'
+  SENDGRID_ADDRESS: smtp.sendgrid.net
+  SENDGRID_DOMAIN: smartalarm.com
+  SENDGRID_PORT: '587'
   SENDGRID_API_KEY:
   SENDGRID_USERNAME:
   SENDGRID_PASSWORD:
   EMAIL_SENDER:
 test:
-  SENDGRID_ADDRESS: localhost
-  SENDGRID_DOMAIN: mail.google.com
-  SENDGRID_PORT: '1025'
+  SENDGRID_ADDRESS: smtp.sendgrid.net
+  SENDGRID_DOMAIN: smartalarm.com
+  SENDGRID_PORT: '587'
   SENDGRID_API_KEY:
   SENDGRID_USERNAME:
   SENDGRID_PASSWORD:
   EMAIL_SENDER:
 production:
   SENDGRID_ADDRESS: smtp.sendgrid.net
-  SENDGRID_DOMAIN: mail.google.com
+  SENDGRID_DOMAIN: smartalarm.com
   SENDGRID_PORT: '587'
   SENDGRID_API_KEY: production_key
   SENDGRID_USERNAME: production_username
