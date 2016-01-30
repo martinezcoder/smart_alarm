@@ -1,10 +1,8 @@
 .col-md-12
   .row
     .col-md-12
-      - if flash[:notice]
-        .alert.alert-success
-          %a.close{"aria-label" => "close", "data-dismiss" => "alert", :href => "#"} ×
-          %strong= flash[:notice]
+      .alert.alert-success{:class => ("hidden" unless flash[:notice])}
+        %strong#success-message= flash[:notice]
 
   .row
     .col-md-12.text-center
@@ -19,7 +17,7 @@
             %th Expires at
             %th
 
-        %tbody
+        %tbody#endpoints
           - @endpoints.each do |endpoint|
             %tr
               %td= endpoint.name
@@ -33,4 +31,23 @@
               %td= link_to "Edit", edit_endpoint_path(endpoint)
       .row
         .col-md-2.col-md-offset-10
-          = link_to 'New Endpoint', new_endpoint_path, class: "btn btn-success"
+          %button.btn.btn-success{"data-target" => "#newEndpointModal", "data-toggle" => "modal", :type => "button"}
+            New Endpoint
+/ Modal
+#newEndpointModal.modal.fade{"aria-labelledby" => "newEndpointModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog{:role => "document"}
+    .modal-content
+      = form_for @endpoint, remote: true do |f|
+        .modal-header
+          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+            %span{"aria-hidden" => "true"} ×
+          %h4#myModalLabel.modal-title Modal title
+        .modal-body
+          .row
+            .col-md-10.col-md-offset-1
+              .alert.alert-danger.hidden
+                %strong#error-message
+              = render 'form', f: f
+        .modal-footer
+          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
+          = f.submit 'Create', class: "btn btn-success"

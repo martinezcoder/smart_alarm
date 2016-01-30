@@ -4,10 +4,13 @@
 #
 #  id         :uuid             not null, primary key
 #  name       :string
-#  status      :integer
+#  status     :integer
 #  expires_at :integer
 #  sent_alert :integer
 #  retries    :integer
+#  interval   :integer
+#  user_id    :integer
+#  recipients :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

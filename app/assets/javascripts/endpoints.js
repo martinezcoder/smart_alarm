@@ -15,6 +15,12 @@ $(document).on('page:change', function() {
     $('[name^="endpoint[interval]"]:checked').prop('checked', false);
   });
 
+  $('form').bind('ajax:error', function(event, data, status, xhr) {
+    data.responseJSON.errors.forEach(function(elem) {
+      $('#error-message').append('<div>' + elem + '</div>');
+      $('.alert-danger').removeClass('hidden');
+    })
+  })
 
   $("[name='status']").bootstrapSwitch({
     size: 'mini',
@@ -25,7 +31,7 @@ $(document).on('page:change', function() {
         type:'PUT',
         dataType: "json",
         contentType: 'application/json',
-        url: "/endpoints/" + event.target.dataset.id, 
+        url: "/endpoints/" + event.target.dataset.id,
         data: JSON.stringify({ "endpoint": { "status": new_status } })
       });
     }

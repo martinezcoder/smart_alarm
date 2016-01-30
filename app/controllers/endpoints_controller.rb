@@ -5,6 +5,7 @@ class EndpointsController < ApplicationController
 
   def index
     @endpoints = current_user.endpoints
+    @endpoint = Endpoint.new
   end
 
   def new
@@ -18,9 +19,9 @@ class EndpointsController < ApplicationController
     @endpoint = current_user.endpoints.new(endpoint_params)
     if @endpoint.save
       flash[:notice] = 'Endpoint successfully created'
-      redirect_to endpoints_path
+      render js: "window.location.href = ('#{endpoints_path}');"
     else
-      render :new
+      render status: 400, json: { errors: @endpoint.errors.full_messages }
     end
   end
 
@@ -32,9 +33,15 @@ class EndpointsController < ApplicationController
     new_attrs[:interval] ||= nil
     if @endpoint.update(new_attrs)
       flash[:notice] = 'Endpoint successfully updated'
-      redirect_to endpoints_path
+      respond_to do |format|
+        format.html { redirect_to endpoints_path }
+        format.json { head :ok }
+      end
     else
-      render :edit
+      respond_to do |format|
+        format.html { render :edit }
+        format.json { render status: 400, json: { errors: @endpoint.errors.full_messages } }
+      end
     end
   end
 

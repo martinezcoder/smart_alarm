@@ -1,66 +1,66 @@
-= form_for @endpoint do |f|
-  - if @endpoint.errors.any?
-    #error_explanation
-      .alert.alert-success
-        %a.close{"aria-label" => "close", "data-dismiss" => "alert", :href => "#"} ×
-        %h2= "#{pluralize(@endpoint.errors.count, "error")} prohibited this endpoint from being saved:"
-        %ul
-          - @endpoint.errors.full_messages.each do |message|
-            %li
-              = message
-  .form-group.row
-    = f.label :name, 'Name'
-    %br/
-    = f.text_field :name, autofocus: true, class: "form-control"
-  .form-group.row
-    = f.label 'Type'
-    %br/
-    %label.radio-inline
-      %input#event-base-alert{ name: "radiotype", type: "radio", checked: "checked" }
-      Event-base Alert
-    %label.radio-inline
-      %input#downtime-alert{ name: "radiotype", type: "radio" }
-      Downtime Alert
-  #interval-container.form-group.hidden.row
-    = f.label 'Interval'
-    %br/
-    .col-md-3
-      .radio
-        %label
-          = f.radio_button('interval', Endpoint.intervals["5-minutes"])
-          5 Minutes
-      .radio
-        %label
-          = f.radio_button('interval', Endpoint.intervals["15-minutes"])
-          15 Minutes
-      .radio
-        %label
-          = f.radio_button('interval', Endpoint.intervals["hourly"])
-          Hour
-      .radio
-        %label
-          = f.radio_button('interval', Endpoint.intervals["weekly"])
-          Week
-    .col-md-3
-      .radio
-        %label
-          = f.radio_button('interval', Endpoint.intervals["30-minutes"])
-          30 Minute
-      .radio
-        %label
-          = f.radio_button('interval', Endpoint.intervals["daily"])
-          Day
-      .radio
-        %label
-          = f.radio_button('interval', Endpoint.intervals["monthly"])
-          Month
-  .form-group.row
-    = f.label :recipients, 'Recipients'
-    %br/
-    = f.text_field :recipients, class: "form-control"
+- if @endpoint.errors.any?
+  #error_explanation
+    .alert.alert-success
+      %a.close{"aria-label" => "close", "data-dismiss" => "alert", :href => "#"} ×
+      %h2= "#{pluralize(@endpoint.errors.count, "error")} prohibited this endpoint from being saved:"
+      %ul
+        - @endpoint.errors.full_messages.each do |message|
+          %li
+            = message
+.form-group.row
+  = f.label :name, 'Name'
   %br/
+  = f.text_field :name, autofocus: true, class: "form-control"
+.form-group.row
+  = f.label 'Type'
+  %br/
+  %label.radio-inline
+    %input#event-base-alert{ name: "radiotype", type: "radio", checked: "checked" }
+    Event-base Alert
+  %label.radio-inline
+    %input#downtime-alert{ name: "radiotype", type: "radio" }
+    Downtime Alert
+#interval-container.form-group.hidden.row
+  = f.label 'Interval'
+  %br/
+  .col-md-3
+    .radio
+      %label
+        = f.radio_button('interval', Endpoint.intervals["5-minutes"])
+        5 Minutes
+    .radio
+      %label
+        = f.radio_button('interval', Endpoint.intervals["15-minutes"])
+        15 Minutes
+    .radio
+      %label
+        = f.radio_button('interval', Endpoint.intervals["hourly"])
+        Hour
+    .radio
+      %label
+        = f.radio_button('interval', Endpoint.intervals["weekly"])
+        Week
+  .col-md-3
+    .radio
+      %label
+        = f.radio_button('interval', Endpoint.intervals["30-minutes"])
+        30 Minute
+    .radio
+      %label
+        = f.radio_button('interval', Endpoint.intervals["daily"])
+        Day
+    .radio
+      %label
+        = f.radio_button('interval', Endpoint.intervals["monthly"])
+        Month
+.form-group.row
+  = f.label :recipients, 'Recipients'
+  %br/
+  = f.text_field :recipients, class: "form-control"
+%br/
+- if params[:action] == 'edit'
   .row
     .col-md-12.text-right
       .actions
-        = f.submit "#{params[:action] == 'new' ? 'Create' : 'Edit'}", class: "btn btn-success"
+        = f.submit 'Edit', class: "btn btn-success"
         = link_to 'Back', endpoints_path, class: "btn btn-default"
