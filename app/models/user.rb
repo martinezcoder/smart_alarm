@@ -22,6 +22,7 @@
 #  country                :string
 #  created_at             :datetime
 #  updated_at             :datetime
+#  authentication_token   :string
 #
 
 class User < ActiveRecord::Base

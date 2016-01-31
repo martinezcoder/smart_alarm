@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
 
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :authenticate_user_from_token!
+  before_action :authenticate_user_from_token!, if: :api_endpoint?
   before_action :authenticate_user!
 
   protected
@@ -26,9 +26,12 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def api_endpoint?
+    # Use this method to allow only specific controllers/actions to be accessed via the API
+    controller_name == 'endpoints' && action_name ==  'index'
+  end
+
   def authenticate_user_from_token!
-    puts request.headers['Accept']
-    puts request.headers['Content-Type']
     user_token = request.headers["X-User-Token"].presence
     user_email = request.headers["X-User-Email"].presence
     user = user_token && user_email &&
