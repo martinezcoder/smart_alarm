@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160119215943) do
+ActiveRecord::Schema.define(version: 20160202223523) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,17 @@ ActiveRecord::Schema.define(version: 20160119215943) do
 
   add_index "contacts", ["user_id"], name: "index_contacts_on_user_id", using: :btree
 
+  create_table "contacts_endpoints", force: :cascade do |t|
+    t.integer  "contact_id"
+    t.uuid     "endpoint_id"
+    t.integer  "kind"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contacts_endpoints", ["contact_id", "endpoint_id"], name: "index_contacts_endpoints_on_contact_id_and_endpoint_id", using: :btree
+  add_index "contacts_endpoints", ["kind"], name: "index_contacts_endpoints_on_kind", using: :btree
+
   create_table "endpoints", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name"
     t.integer  "status"
@@ -68,7 +79,6 @@ ActiveRecord::Schema.define(version: 20160119215943) do
     t.integer  "retries"
     t.integer  "interval"
     t.integer  "user_id"
-    t.text     "recipients"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
   end
