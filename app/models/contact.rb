@@ -12,4 +12,6 @@
 
 class Contact < ActiveRecord::Base
   belongs_to :user
+  has_many :contacts_endpoints
+  has_many :endpoints, through: :contacts_endpoints
 end

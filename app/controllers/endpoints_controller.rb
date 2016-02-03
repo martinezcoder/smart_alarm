@@ -1,14 +1,11 @@
 class EndpointsController < ApplicationController
   before_action :set_endpoint, only: [:edit, :update, :show]
+  before_action :set_contacts, only: [:index, :edit]
 
   skip_before_action :authenticate_user!, only: [:execute]
 
   def index
     @endpoints = current_user.endpoints
-    @endpoint = Endpoint.new
-  end
-
-  def new
     @endpoint = Endpoint.new
   end
 
@@ -56,7 +53,20 @@ class EndpointsController < ApplicationController
     @endpoint = current_user.endpoints.find(params[:id])
   end
 
+  def set_contacts
+    @contacts = current_user.contacts
+  end
+
   def endpoint_params
-    params.require(:endpoint).permit(:name, :interval, :recipients, :status)
+    params.require(:endpoint).permit(
+      :name,
+      :interval,
+      :recipients,
+      :status,
+      :contacts_endpoints_attributes => [
+        :contact_id,
+        :kind
+      ]
+    )
   end
 end

@@ -28,12 +28,17 @@ class Endpoint < ActiveRecord::Base
   scope :non_zombie, -> { where.not(status: Endpoint.statuses[:zombie]) }
 
   belongs_to :user
+  has_many :contacts_endpoints
+  has_many :contacts, through: :contacts_endpoints
+
+  accepts_nested_attributes_for :contacts_endpoints
 
   before_save :set_expires_at
   before_create :set_defaults
 
   validates :name, presence: true
   validates :interval, inclusion: { in: self.intervals.values, message: "%{value} is not a permitted interval"}, allow_nil: true
+
 
   def event_based_alert?
     interval == nil

@@ -53,10 +53,18 @@
       %label
         = f.radio_button('interval', Endpoint.intervals["monthly"])
         Month
-.form-group.row
+.form-group.row#recipients-form
   = f.label :recipients, 'Recipients'
-  %br/
-  = f.text_field :recipients, class: "form-control"
+  %br
+
+  .row
+    = f.fields_for :contacts_endpoints, @endpoint.contacts_endpoints.new() do |ce|
+      .col-md-9
+        = ce.select("contact_id", @contacts.collect {|p| [p.name, p.id] }, { include_blank: true }, {class: "form-control recipient-select"})
+      .col-md-3
+        = ce.select("kind", ContactsEndpoint.kinds.keys.to_a, { include_blank: false }, { class: "form-control" })
+  %button.btn.btn-default#add-recipient-btn
+    Add
 %br/
 - if params[:action] == 'edit'
   .row
