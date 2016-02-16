@@ -64,6 +64,7 @@ class EndpointsController < ApplicationController
       :recipients,
       :status,
       :contacts_endpoints_attributes => [
+        :id,
         :contact_id,
         :kind
       ]
