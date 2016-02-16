@@ -1,0 +1,5 @@
+= f.fields_for :contacts_endpoints, contact_endpoint do |ce|
+  .col-md-9
+    = ce.select("contact_id", @contacts.collect {|p| [p.name, p.id] }, { include_blank: true }, {class: "form-control recipient-select"})
+  .col-md-3
+    = ce.select("kind", ContactsEndpoint.kinds.keys.to_a, { include_blank: false }, { class: "form-control" })

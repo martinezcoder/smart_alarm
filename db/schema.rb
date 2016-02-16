@@ -78,9 +78,9 @@ ActiveRecord::Schema.define(version: 20160202223523) do
     t.integer  "sent_alert", limit: 8
     t.integer  "retries"
     t.integer  "interval"
+    t.integer  "user_id"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
-    t.integer  "user_id"
   end
 
   add_index "endpoints", ["expires_at"], name: "index_endpoints_on_expires_at", using: :btree

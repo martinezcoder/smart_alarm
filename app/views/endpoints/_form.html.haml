@@ -58,11 +58,11 @@
   %br
 
   .row
-    = f.fields_for :contacts_endpoints, @endpoint.contacts_endpoints.new() do |ce|
-      .col-md-9
-        = ce.select("contact_id", @contacts.collect {|p| [p.name, p.id] }, { include_blank: true }, {class: "form-control recipient-select"})
-      .col-md-3
-        = ce.select("kind", ContactsEndpoint.kinds.keys.to_a, { include_blank: false }, { class: "form-control" })
+    - if @endpoint.contacts_endpoints.present?
+      - @endpoint.contacts_endpoints.each do |contact_endpoint|
+        = render 'contact_endpoint_form', f: f, contact_endpoint: contact_endpoint
+    - else
+      = render 'contact_endpoint_form', f: f, contact_endpoint: @endpoint.contacts_endpoints.new()
   %button.btn.btn-default#add-recipient-btn
     Add
 %br/
