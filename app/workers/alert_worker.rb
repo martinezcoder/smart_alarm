@@ -13,7 +13,7 @@ class AlertWorker
 
   def perform_event_based alarm
     data = initial_data alarm
-    data[:text] = "Se ha recibido el evento correspondiente a la alarma #{alarm.name} el dia #{Time.at(alarm.expires_at).to_s}"
+    data[:text] = "Se ha recibido el evento correspondiente a la alarma #{alarm.name} el dia #{Time.now.to_s}"
 
     EmailService.new(alarm, data).send
   end
@@ -37,7 +37,7 @@ class AlertWorker
   def initial_data alarm
     data = {}
     data[:sender] = ENV['EMAIL_SENDER']
-    data[:recipient_list] = alarm.recipients.split ","
+    data[:recipient_list] = alarm.contacts.pluck :email
     data[:subject] = "Alarma #{alarm.name}"
     data
   end

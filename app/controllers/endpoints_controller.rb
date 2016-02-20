@@ -9,9 +9,6 @@ class EndpointsController < ApplicationController
     @endpoint = Endpoint.new
   end
 
-  def show
-  end
-
   def create
     @endpoint = current_user.endpoints.new(endpoint_params)
     if @endpoint.save

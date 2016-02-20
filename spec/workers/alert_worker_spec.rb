@@ -2,14 +2,18 @@ require 'rails_helper'
 
 describe AlertWorker do
   before(:each) do
-    @alarm = FactoryGirl.create(:endpoint, interval: 60*15)
+    EmailService.any_instance.stub(:send).and_return(true)
+    @user = FactoryGirl.create(:user)
+    @alarm = FactoryGirl.create(:endpoint, interval: 60*15, user: @user)
+    @alarm.contacts << FactoryGirl.create(:contact, user: @user)
   end
 
-  it { should be_retryable true }
+  it { should be_retryable false }
 
   it "enqueues a communication worker" do
-    AlertWorker.perform_async(@alarm.id, true)
-    expect(AlertWorker).to have_enqueued_job(@alarm.id, true)
+    expect {
+      AlertWorker.perform_async(@alarm.id, true)
+    }.to change(AlertWorker.jobs, :size).by(1)
   end
 
   it 'should increase retries if is an expiration' do
