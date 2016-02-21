@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     root to: "devise/sessions#new"
   end
 
-  resources :endpoints
+  resources :endpoints, only: [:index, :create, :edit, :update]
   resources :contacts
 
   match ':uuid', to: 'endpoints#execute', via: [:post]
