@@ -15,6 +15,7 @@
           %tr
             %th Name
             %th Email
+            %th Phone Number
             %th
 
         %tbody
@@ -22,6 +23,7 @@
             %tr
               %td= contact.name
               %td= contact.email
+              %td= contact.phone_number
               %td= link_to "Edit", edit_contact_path(contact)
       .row
         .col-md-2.col-md-offset-10

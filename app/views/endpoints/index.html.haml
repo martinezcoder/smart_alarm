@@ -15,6 +15,7 @@
             %th Status
             %th Last Use
             %th Expires at
+            %th Key
             %th
 
         %tbody#endpoints
@@ -28,6 +29,10 @@
               %td= endpoint.sent_alert ? Time.at(endpoint.sent_alert) : 'Never'
               /FIXME use presenters
               %td= endpoint.downtime_alert? ? Time.at(endpoint.expires_at) : 'Event-based'
+
+              %td
+                %a.show-endpoint-key{ 'data-key' => endpoint.id }
+                  show
               %td= link_to "Edit", edit_endpoint_path(endpoint)
       .row
         .col-md-2.col-md-offset-10
@@ -41,7 +46,7 @@
         .modal-header
           %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
             %span{"aria-hidden" => "true"} ×
-          %h4#myModalLabel.modal-title Modal title
+          %h4#myModalLabel.modal-title Create Endpoint
         .modal-body
           .row
             .col-md-10.col-md-offset-1
@@ -51,3 +56,18 @@
         .modal-footer
           %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
           = f.submit 'Create', class: "btn btn-success"
+
+/ Modal
+#showKey.modal.fade{"aria-labelledby" => "showKeyModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+        %h4#myModalLabel.modal-title Endpoint key
+      .modal-body
+        .row
+          .col-md-10.col-md-offset-1
+            #key-container
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close

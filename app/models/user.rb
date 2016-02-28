@@ -37,6 +37,8 @@ class User < ActiveRecord::Base
   # You likely have this before callback set up for the token.
   before_save :ensure_authentication_token
 
+  after_create :add_self_as_contact
+
   def ensure_authentication_token
     if authentication_token.blank?
       self.authentication_token = generate_authentication_token
@@ -50,5 +52,9 @@ class User < ActiveRecord::Base
       token = Devise.friendly_token
       break token unless User.where(authentication_token: token).first
     end
+  end
+
+  def add_self_as_contact
+    contacts.create(email: email, name: "#{name} #{last_name}")
   end
 end

@@ -23,4 +23,4 @@
           - if current_user
             %ul.dropdown-menu
               %li
-                %a{:href => "#"} Sign Out
+                = link_to('Logout', destroy_user_session_path, :method => :delete)

@@ -45,6 +45,14 @@ $(document).on('page:change', function() {
       });
     }
   });
+
+  $(".show-endpoint-key").click(function (e) {
+    e.preventDefault();
+    var endpointKey = $(this).data('key');
+    console.log(endpointKey);
+    $("#key-container").html(endpointKey);
+    $('#showKey').modal('show');
+  });
 });
 
 function copySelect(attribute, id, columnSize) {
